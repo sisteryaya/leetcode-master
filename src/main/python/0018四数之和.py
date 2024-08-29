@@ -20,3 +20,45 @@
 
 """
 
+
+
+#思路：指针
+
+from typing import List
+
+
+class Solution:
+    def fourSum(self, nums:List[int], target:int) -> List[int]:
+        n = len(nums)
+        nums.sort()
+        ans = []
+        for i in range( n ):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            for j in range(i+1, n):
+                if j > i+1 and nums[j] == nums[j-1]:
+                    continue
+                left = j + 1
+                right = n - 1
+                while left < right:
+                    curr = nums[i] + nums[j] + nums[left] + nums[right]
+                    if curr > target:
+                        right -= 1
+                    elif curr < target:
+                        left += 1
+                    else:
+                        ans.append( [nums[i], nums[j], nums[left], nums[right] ])
+                        # 去重
+                        while left < right and nums[left+1] == nums[left]:    left += 1
+                        while left < right and nums[right-1] == nums[right]:    right -= 1
+                        left += 1
+                        right -= 1
+        return ans
+
+if __name__ == '__main__':
+    nums = [1, 0, -1, 0, -2, 2]
+    target = 0
+    ans = Solution().fourSum( nums, target)
+    print('ans: ', ans)
+
+

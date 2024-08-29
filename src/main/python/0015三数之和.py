@@ -25,7 +25,7 @@
 from typing import List
 
 class Solution:
-    def treeSum(self, nums:List[int], target:int) -> List[int]:
+    def threeSum(self, nums:List[int] ) -> List[int]:
         n = len(nums)
         nums.sort()
         ans = []
@@ -40,12 +40,12 @@ class Solution:
                 curr = nums[i] + nums[left] + nums[right]
                 if curr > 0:
                     right -= 1
-                if curr < 0:
+                elif curr < 0:
                     left += 1
                 else:
                     ans.append( [nums[i], nums[left], nums[right] ])
                     # 去重
-                    while left != right and nums[left-1] == nums[left]:
+                    while left != right and nums[left+1] == nums[left]:
                         left += 1
                     while left != right and nums[right-1] == nums[right]:
                         right -= 1
@@ -61,7 +61,7 @@ class Solution:
 if __name__ == '__main__':
     nums = [-1, 0, 1, 2, -1, -4]
     target = 0
-    ans = Solution().treeSum( nums, target)
+    ans = Solution().threeSum( nums, target)
     print('ans: ', ans)
 
 
